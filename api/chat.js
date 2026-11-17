@@ -22,7 +22,7 @@ export default async function handler(req, res) {
                 'Authorization': `Bearer ${OPENAI_API_KEY}`
             },
             body: JSON.stringify({
-                model: "gpt-3.5-turbo", // Model paling murah & cepet
+                model: "model: "gpt-5.6-terra", // Model paling murah & cepet
                 messages: [
                     { role: "system", content: "Kamu adalah SANZ AI, asisten pintar yang jawabannya singkat, jelas, dan to the point." },
                     { role: "user", content: prompt }
