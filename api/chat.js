@@ -6,19 +6,22 @@ export default async function handler(req, res) {
     const { prompt } = req.body;
     if (!prompt) return res.status(400).json({ error: 'Prompt kosong' });
 
-    const OPENAI_API_KEY = process.env.OPENAI_API_KEY;
+    const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
 
     try {
-        const response = await fetch('https://api.openai.com/v1/chat/completions', {
+        // Gemini punya endpoint kompatibel OpenAI, jadi formatnya sama
+        const response = await fetch('https://generativelanguage.googleapis.com/v1beta/openai/chat/completions', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer ${OPENAI_API_KEY}`
+                'Authorization': `Bearer ${GEMINI_API_KEY}`
             },
             body: JSON.stringify({
-                model: "gpt-4o-mini",
-                messages: [{ role: "user", content: prompt }],
-                max_tokens: 500
+                model: "gemini-2.0-flash", // Model gratis yang cepet
+                messages: [
+                    { role: "system", content: "Kamu adalah SANZ AI, asisten pintar yang jawabannya singkat dan jelas." },
+                    { role: "user", content: prompt }
+                ]
             })
         });
 
