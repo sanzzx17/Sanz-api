@@ -17,7 +17,7 @@ export default async function handler(req, res) {
                 'Authorization': `Bearer ${GROQ_API_KEY}`
             },
             body: JSON.stringify({
-                model: "llama3-8b-8192", // Model gratis dari Meta
+                model: "model: "llama-3.1-8b-instant", // Model gratis dari Meta
                 messages: [
                     { role: "system", content: "Kamu adalah SANZ AI, asisten pintar yang jawabannya singkat dan jelas." },
                     { role: "user", content: prompt }
