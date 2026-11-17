@@ -6,18 +6,18 @@ export default async function handler(req, res) {
     const { prompt } = req.body;
     if (!prompt) return res.status(400).json({ error: 'Prompt kosong' });
 
-    const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
+    // Ambil API Key dari Environment Variable Vercel
+    const GROQ_API_KEY = process.env.GROQ_API_KEY;
 
     try {
-        // Gemini punya endpoint kompatibel OpenAI, jadi formatnya sama
-        const response = await fetch('https://generativelanguage.googleapis.com/v1beta/openai/chat/completions', {
+        const response = await fetch('https://api.groq.com/openai/v1/chat/completions', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer ${GEMINI_API_KEY}`
+                'Authorization': `Bearer ${GROQ_API_KEY}`
             },
             body: JSON.stringify({
-                model: "gemini-2.0-flash", // Model gratis yang cepet
+                model: "llama3-8b-8192", // Model gratis dari Meta
                 messages: [
                     { role: "system", content: "Kamu adalah SANZ AI, asisten pintar yang jawabannya singkat dan jelas." },
                     { role: "user", content: prompt }
